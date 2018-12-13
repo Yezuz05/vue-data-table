@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <h3>My Custom Data Table</h3>
-    <DataTable @cell-change="handleCellChange" :dataSource="payments" :columns="columns" />
+    <h3>Payments for Product SKU #746824</h3>
+    <DataTable @cell-change="handleCellChange" :dataSource="payments" :columns="columns" :config="config" />
   </div>
 </template>
 
@@ -39,7 +39,12 @@ export default {
           title: 'Amount',
           dataIndex: 'amount'
         }
-      ]
+      ],
+      config: {
+        total: null,
+        itemsPerPage: 5,
+        frontPagination: true
+      }
     }
   },
   methods: {
@@ -54,5 +59,10 @@ export default {
   div#app {
     padding: 30px;
     text-align: center;
+    h3 {
+      font-weight: 300;
+      font-size: 30px;
+      margin-bottom: 25px;
+    }
   }
 </style>
