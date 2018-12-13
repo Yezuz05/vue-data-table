@@ -8,6 +8,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "lodash.debounce": "^4.0.8",
     "vue": "^2.5.17"
   },
   "devDependencies": {

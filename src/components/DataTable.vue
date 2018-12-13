@@ -1,28 +1,33 @@
 <template>
     <div id="data-table">
+        <div v-if="config.hasSearch && config.searchIndex" class="search-box">
+            <label for="">Search:</label>
+            <input style="position: relative" @keyup="search()" v-model="searchString" type="text" class="search-input">
+            <i @click="clearSearch()" v-if="this.hasSearch" class="fas fa-times"></i>
+        </div>
         <div class="table-wrapper">
-        <table :class="config.tableClass ? config.tableClass : 'table'">
-            <thead>
-                <tr>
-                    <th :class="config.thClass ? config.thClass : 'th'" v-for="(column, index) in tableColumns" :key="index">{{column.title}}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(row, rowIndex) in tableData" :key="rowIndex">
-                    <td :class="config.tdClass ? config.tdClass : 'td'" v-for="(column, index) in tableColumns" :key="index">
-                         <span spellcheck="false" :contenteditable="column.dataEditable && row.edit">
-                            {{row[column.dataIndex]}}
-                         </span>
-                         <span @click="editCell(rowIndex, true)" v-if="column.dataEditable && !row.edit">
-                            <i class="fas fa-pencil-alt"></i>
-                        </span>
-                         <span v-if="column.dataEditable && row.edit">
-                            <i @click="editCell(rowIndex, false, $event, column.dataIndex)" class="fas fa-check"></i>
-                        </span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            <table :class="config.tableClass ? config.tableClass : 'table'">
+                <thead>
+                    <tr>
+                        <th :class="config.thClass ? config.thClass : 'th'" v-for="(column, index) in tableColumns" :key="index">{{column.title}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(row, rowIndex) in tableData" :key="rowIndex">
+                        <td :class="config.tdClass ? config.tdClass : 'td'" v-for="(column, index) in tableColumns" :key="index">
+                            <span spellcheck="false" :contenteditable="column.dataEditable && row.edit">
+                                {{row[column.dataIndex]}}
+                            </span>
+                            <span @click="editCell(rowIndex, true)" v-if="column.dataEditable && !row.edit">
+                                <i class="fas fa-pencil-alt"></i>
+                            </span>
+                            <span v-if="column.dataEditable && row.edit">
+                                <i @click="editCell(rowIndex, false, $event, column.dataIndex)" class="fas fa-check"></i>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div class="pagination-box">
             <div class="pages">
@@ -41,6 +46,7 @@
 </template>
 
 <script>
+import _ from "lodash";
 export default {
     name: 'DataTable',
     props: {
@@ -56,7 +62,10 @@ export default {
             itemsPerPage: 10,
             pages: null,
             totalData: null,
-            perPageArray:Array
+            perPageArray:Array,
+            hasSearch: false,
+            searchString: null,
+            searchSource: null,
         }
     },
     mounted() {
@@ -93,7 +102,33 @@ export default {
         fetchData() {
             const start = (this.currentPage - 1) * this.itemsPerPage;
             const end = ((this.currentPage - 1) * this.itemsPerPage) + this.itemsPerPage;
-            this.tableData = this.dataSource.slice(start, end);
+            if (this.hasSearch) {
+                this.tableData = this.searchSource.slice(start, end);
+            } else {
+                this.tableData = this.dataSource.slice(start, end);
+            }
+        },
+        search: _.debounce(function() {
+            if (!this.hasSearch) {
+                this.hasSearch = true;
+            }
+            this.searchSource = this.dataSource.filter((data)=> {
+                return new RegExp(this.searchString).test(data[this.config.searchIndex].toLowerCase());
+            })
+            this.totalData = this.searchSource.length;
+            this.resetPaginator();
+            this.fetchData();
+        }, 600),
+        resetPaginator() {
+            this.currentPage = 1;
+            this.pages = Math.ceil(this.totalData / this.itemsPerPage);
+            this.totalData = this.dataSource.length;
+            this.fetchData();
+        },
+        clearSearch() {
+            this.searchString = null;
+            this.hasSearch = false;
+            this.resetPaginator();
         }
     }
 }
@@ -201,6 +236,32 @@ export default {
                     }
                 }
             }
+        }
+
+        .search-box {
+            margin-bottom: 10px;
+            width: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+            .fa-times {
+                position: absolute;
+                cursor: pointer;
+                color: rgb(247, 99, 99);
+                font-size: 12px;
+                right: 3%;
+            }
+        }
+
+        .search-input {
+            width: 100%;
+            height: 30px;
+            border: 2px solid rgb(188, 236, 248);
+            border-radius: 4px;
+            text-indent: 10px;
+            font-size: 14px;
+            outline: none;
         }
     }
 </style>

@@ -46,7 +46,9 @@ export default {
         frontPagination: true,
         tableClass: '',
         thClass: '',
-        tdClass: ''
+        tdClass: '',
+        hasSearch: true,
+        searchIndex: 'name'
       }
     }
   },
