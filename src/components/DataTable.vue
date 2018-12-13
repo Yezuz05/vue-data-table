@@ -113,7 +113,7 @@ export default {
                 this.hasSearch = true;
             }
             this.searchSource = this.dataSource.filter((data)=> {
-                return new RegExp(this.searchString).test(data[this.config.searchIndex].toLowerCase());
+                return new RegExp(this.searchString.trim()).test(data[this.config.searchIndex].toLowerCase());
             })
             this.totalData = this.searchSource.length;
             this.resetPaginator();
