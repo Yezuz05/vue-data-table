@@ -43,7 +43,10 @@ export default {
       config: {
         total: null,
         itemsPerPage: 5,
-        frontPagination: true
+        frontPagination: true,
+        tableClass: '',
+        thClass: '',
+        tdClass: ''
       }
     }
   },

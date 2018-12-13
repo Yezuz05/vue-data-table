@@ -1,15 +1,15 @@
 <template>
     <div id="data-table">
         <div class="table-wrapper">
-        <table class="table">
+        <table :class="config.tableClass ? config.tableClass : 'table'">
             <thead>
                 <tr>
-                    <th v-for="(column, index) in tableColumns" :key="index">{{column.title}}</th>
+                    <th :class="config.thClass ? config.thClass : 'th'" v-for="(column, index) in tableColumns" :key="index">{{column.title}}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(row, rowIndex) in tableData" :key="rowIndex">
-                    <td v-for="(column, index) in tableColumns" :key="index">
+                    <td :class="config.tdClass ? config.tdClass : 'td'" v-for="(column, index) in tableColumns" :key="index">
                          <span spellcheck="false" :contenteditable="column.dataEditable && row.edit">
                             {{row[column.dataIndex]}}
                          </span>
@@ -81,7 +81,11 @@ export default {
         },
         paginate(direction) {
             this.currentPage += direction;
-            this.fetchData();
+            if (this.config.frontPagination) {
+                this.fetchData();
+            } else {
+                this.$emit('pageIndexChange', this.currentPage);
+            }
         },
         goToPage() {
             this.fetchData();
@@ -108,11 +112,11 @@ export default {
                 padding: 20px;
                 border-collapse: collapse;
                 border: 1px solid #EEF6F8;
-                th {
+                .th {
                     padding: 20px 10px;
                     border-bottom: 1px solid #EEF6F8;
                 }
-                td {
+                .td {
                     padding: 20px 10px;
                     border-bottom: 3px solid #EEF6F8;
                     max-width: 300px;
