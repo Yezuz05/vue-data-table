@@ -60,6 +60,7 @@ export default {
 <style lang="scss" scoped>
     #data-table {
         width: 100%;
+        overflow-x: scroll;
         .table {
             width: inherit;
             text-align: left;
@@ -67,7 +68,6 @@ export default {
             padding: 20px;
             border-collapse: collapse;
             border: 1px solid #EEF6F8;
-            overflow-x: scroll;
             th {
                 padding: 20px 10px;
                 border-bottom: 1px solid #EEF6F8;
