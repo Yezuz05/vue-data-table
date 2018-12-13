@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h3>My Custom Data Table</h3>
-    <DataTable :dataSource="payments" :columns="columns" />
+    <DataTable @cell-change="handleCellChange" :dataSource="payments" :columns="columns" />
   </div>
 </template>
 
@@ -28,7 +28,8 @@ export default {
         },
         {
           title: 'Description',
-          dataIndex: 'description'
+          dataIndex: 'description',
+          dataEditable: true
         },
         {
           title: 'Date',
@@ -39,6 +40,11 @@ export default {
           dataIndex: 'amount'
         }
       ]
+    }
+  },
+  methods: {
+    handleCellChange(event) {
+      console.log(event);
     }
   }
 }
