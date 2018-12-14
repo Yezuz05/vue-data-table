@@ -1,0 +1,31 @@
+{
+	"first_name": "Yusuff",
+	"last_name": "Bisiriyu",
+	"country": "Nigeria",
+	"city": "Lagos",
+	"date_of_birth": "5th September, 1997",
+	"years_of_experience": "3",
+    "professional_language": "javascript",
+    "web_frameworks": [
+        "Vue.JS",
+        "Angular"
+    ],
+    "other_languages": [
+        "C#",
+        "python"
+    ],
+	"email_address": "temitopeyussuph@gmail.com",
+    "phone_number": "+2347018140976",
+    "skype_id": "yezuz05",
+    "hobbies": [
+        "Coding",
+        "Watching Anime",
+        "PC/Mobile Games",
+        "Watching Movies"
+    ],
+    "social_links": {
+        "linked_in": "https://www.linkedin.com/in/bisiriyu-yusuff/",
+        "twitter": "https://twitter.com/yezuz_sama",
+        "github": "https://github.com/Yezuz05"
+    }
+}

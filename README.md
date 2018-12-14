@@ -65,6 +65,7 @@ Listen for cell change with the `cell-change` event. It returns data in this for
     </p>
 </details>
 
+
 2. In what ways would you adapt your component so that it could be used in many different scenarios where a data table is required?
 <details>
     <summary>
@@ -74,6 +75,7 @@ Listen for cell change with the `cell-change` event. It returns data in this for
         Firstly, I would deploy as an npm module for vue applications. I'm also thinking of creating a standalone vue component build so it can be used in any frontend project.
     </p>
 </details>
+
 
 3. What is one CSS property that you recently learned about that helped you solve a problem?
 <details>
