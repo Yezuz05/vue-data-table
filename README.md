@@ -19,9 +19,9 @@ The Data Table component can be found in the components folder as DataTable.vue 
 # Input Data
 The component expects the following variables
 ```
-    dataSource      // Table data as an array of objects
-    columns         // columns to display as an array of objects
-Each column should be in this format
+    dataSource,      // Table data as an array of objects
+    columns,         // columns to display as an array of objects
+    // Each column should be in this format
     {
         title: '**',
         dataIndex: '**',
@@ -46,7 +46,7 @@ Each column should be in this format
     <DataTable @cell-change="handleCellChange" :dataSource="payments" :columns="columns" :config="config" />
 ```
 
-Listen for cell change event with the cell-change event. It returns data in this format
+Listen for cell change with the `cell-change` event. It returns data in this format
 ```
     {
         row,        //changed row
