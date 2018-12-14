@@ -246,6 +246,11 @@ export default {
                     font-size: 15px;
                     border: 1px solid rgba(57, 211, 250, 0.808);
                     border-radius: 4px;
+                    &::-webkit-inner-spin-button, 
+                    &::-webkit-outer-spin-button { 
+                        -webkit-appearance: none; 
+                        margin: 0; 
+                    }
                 }
             }
             .buttons {
