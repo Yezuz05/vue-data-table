@@ -244,13 +244,15 @@ export default {
                     height: 30px;
                     text-indent: 10px;
                     font-size: 15px;
+                    border: 1px solid rgba(57, 211, 250, 0.808);
+                    border-radius: 4px;
                 }
             }
             .buttons {
                 display: flex;
                 justify-content: space-between;
                 button {
-                    border: 1px solid rgba(37, 203, 245, 0.576);
+                    border: 1px solid rgba(57, 211, 250, 0.808);
                     background-color: #fff;
                     border-radius: 4px;
                     height: 30px;
