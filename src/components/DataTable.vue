@@ -11,7 +11,7 @@
                     <tr>
                         <th :class="config.thClass ? config.thClass : 'th'" v-for="(column, index) in tableColumns" :key="index">
                             {{column.title}}
-                            <i @click="sort(column)" v-if="column.sortable" :class="column.sort_order === 'asc' ? 'fa-sort-amount-up': (column.sort_order === 'desc' ? 'fa-sort-amount-down': 'fa-sort-amount-up')" class="fas"></i>
+                            <i @click="sort(column,index)" v-if="column.sortable" :class="[!!column.sort_order ? 'has-sort' : '', column.sort_order === 'asc' ? 'fa-sort-amount-up': (column.sort_order === 'desc' ? 'fa-sort-amount-down': 'fa-sort-amount-up')]" class="fas"></i>
                         </th>
                     </tr>
                 </thead>
@@ -84,7 +84,7 @@ export default {
             const row = this.tableData[index];
             row.edit = state;
             if (!state) {
-                const editedContent = event.target.parentElement.previousElementSibling.innerText;
+                const editedContent = event.target.parentElement.previousElementSibling.innerText.trim();
                 if (editedContent !== row[dataIndex]) {
                     row[dataIndex] = editedContent;
                     this.$emit('cell-change', {row, cell: dataIndex});
@@ -136,9 +136,9 @@ export default {
             this.hasSearch = false;
             this.resetPaginator();
         },
-        sort(column) {
+        sort(column, index) {
             column.sort_order = column.sort_order === 'asc' ? 'desc' : 'asc';
-
+            this.tableColumns.splice(index, 1, column);
             if (this.hasSearch) {
                 this.searchSource = _.orderBy(this.searchSource, [column.dataIndex], [column.sort_order]);
                 this.fetchData();
@@ -171,7 +171,7 @@ export default {
                         &:hover {
                             color: rgb(54, 177, 248);
                         }
-                        &.sorted {
+                        &.has-sort {
                             color: rgb(22, 103, 253);
                         }
                     }

@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     handleCellChange(event) {
-      console.log(event);
+      alert(`cell ${event.cell} was changed to: ${event.row[event.cell]}`);
     }
   }
 }
