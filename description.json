@@ -5,7 +5,10 @@
 	"city": "Lagos",
 	"date_of_birth": "5th September, 1997",
 	"years_of_experience": "3",
-    "professional_language": "javascript",
+    "professional_languages": [
+        "javascript",
+        "typescript"
+    ],
     "web_frameworks": [
         "Vue.JS",
         "Angular"
