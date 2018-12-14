@@ -30,7 +30,7 @@ export default {
         {
           title: 'Description',
           dataIndex: 'description',
-          dataEditable: true
+          editable: true
         },
         {
           title: 'Date',

@@ -18,13 +18,13 @@
                 <tbody>
                     <tr v-for="(row, rowIndex) in tableData" :key="rowIndex">
                         <td :class="config.tdClass ? config.tdClass : 'td'" v-for="(column, index) in tableColumns" :key="index">
-                            <span spellcheck="false" :contenteditable="column.dataEditable && row.edit">
+                            <span spellcheck="false" :contenteditable="column.editable && row.edit">
                                 {{ column.type === 'Date' ? new Date(row[column.dataIndex]).toLocaleString() : row[column.dataIndex]}}
                             </span>
-                            <span @click="editCell(rowIndex, true)" v-if="column.dataEditable && !row.edit">
+                            <span @click="editCell(rowIndex, true)" v-if="column.editable && !row.edit">
                                 <i class="fas fa-pencil-alt"></i>
                             </span>
-                            <span v-if="column.dataEditable && row.edit">
+                            <span v-if="column.editable && row.edit">
                                 <i @click="editCell(rowIndex, false, $event, column.dataIndex)" class="fas fa-check"></i>
                             </span>
                         </td>
