@@ -24,7 +24,8 @@ export default {
         },
         {
           title: 'Name',
-          dataIndex: 'name'
+          dataIndex: 'name',
+          sortable: true
         },
         {
           title: 'Description',
@@ -33,11 +34,14 @@ export default {
         },
         {
           title: 'Date',
-          dataIndex: 'date'
+          dataIndex: 'date',
+          type: 'Date',
+          sortable: true
         },
         {
           title: 'Amount',
-          dataIndex: 'amount'
+          dataIndex: 'amount',
+          sortable: true
         }
       ],
       config: {

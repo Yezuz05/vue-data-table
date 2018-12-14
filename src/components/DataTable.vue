@@ -9,14 +9,17 @@
             <table :class="config.tableClass ? config.tableClass : 'table'">
                 <thead>
                     <tr>
-                        <th :class="config.thClass ? config.thClass : 'th'" v-for="(column, index) in tableColumns" :key="index">{{column.title}}</th>
+                        <th :class="config.thClass ? config.thClass : 'th'" v-for="(column, index) in tableColumns" :key="index">
+                            {{column.title}}
+                            <i @click="sort(column)" v-if="column.sortable" :class="column.sort_order === 'asc' ? 'fa-sort-amount-up': (column.sort_order === 'desc' ? 'fa-sort-amount-down': 'fa-sort-amount-up')" class="fas"></i>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(row, rowIndex) in tableData" :key="rowIndex">
                         <td :class="config.tdClass ? config.tdClass : 'td'" v-for="(column, index) in tableColumns" :key="index">
                             <span spellcheck="false" :contenteditable="column.dataEditable && row.edit">
-                                {{row[column.dataIndex]}}
+                                {{ column.type === 'Date' ? new Date(row[column.dataIndex]).toLocaleString() : row[column.dataIndex]}}
                             </span>
                             <span @click="editCell(rowIndex, true)" v-if="column.dataEditable && !row.edit">
                                 <i class="fas fa-pencil-alt"></i>
@@ -46,7 +49,7 @@
 </template>
 
 <script>
-import _ from "lodash";
+import _ from 'lodash';
 export default {
     name: 'DataTable',
     props: {
@@ -56,7 +59,8 @@ export default {
     },
     data() {
         return {
-            tableData: this.dataSource,
+            compSource: this.dataSource,
+            tableData: null,
             tableColumns: this.columns,
             currentPage: 1,
             itemsPerPage: 10,
@@ -70,7 +74,7 @@ export default {
     },
     mounted() {
         const {total, itemsPerPage, frontPagination} = this.config;
-        this.totalData = frontPagination ? this.dataSource.length : total;
+        this.totalData = frontPagination ? this.compSource.length : total;
         this.itemsPerPage = itemsPerPage ? itemsPerPage : this.itemsPerPage;
         this.pages = Math.ceil(this.totalData / this.itemsPerPage);
         this.fetchData();
@@ -105,30 +109,38 @@ export default {
             if (this.hasSearch) {
                 this.tableData = this.searchSource.slice(start, end);
             } else {
-                this.tableData = this.dataSource.slice(start, end);
+                this.tableData = this.compSource.slice(start, end);
             }
         },
         search: _.debounce(function() {
             if (!this.hasSearch) {
                 this.hasSearch = true;
             }
-            this.searchSource = this.dataSource.filter((data)=> {
-                return new RegExp(this.searchString.trim()).test(data[this.config.searchIndex].toLowerCase());
-            })
-            this.totalData = this.searchSource.length;
+            this.searchSource = _.filter(this.compSource, (o) => Object.values(o).some((value) => new RegExp(this.searchString, 'i').test(value)));
             this.resetPaginator();
             this.fetchData();
         }, 600),
         resetPaginator() {
             this.currentPage = 1;
             this.pages = Math.ceil(this.totalData / this.itemsPerPage);
-            this.totalData = this.dataSource.length;
+            this.totalData = this.hasSearch ? this.searchSource.length : this.compSource.length;
             this.fetchData();
         },
         clearSearch() {
             this.searchString = null;
             this.hasSearch = false;
             this.resetPaginator();
+        },
+        sort(column) {
+            column.sort_order = column.sort_order === 'asc' ? 'desc' : 'asc';
+
+            if (this.hasSearch) {
+                this.searchSource = _.orderBy(this.searchSource, [column.dataIndex], [column.sort_order]);
+                this.fetchData();
+            } else {
+                this.compSource = _.orderBy(this.compSource, [column.dataIndex], [column.sort_order]);
+                this.fetchData();
+            }
         }
     }
 }
@@ -147,6 +159,18 @@ export default {
                 padding: 20px;
                 border-collapse: collapse;
                 border: 1px solid #EEF6F8;
+                th {
+                    .fas {
+                        transition: color .17s;
+                        cursor: pointer;
+                        &:hover {
+                            color: rgb(54, 177, 248);
+                        }
+                        &.sorted {
+                            color: rgb(22, 103, 253);
+                        }
+                    }
+                }
                 .th {
                     padding: 20px 10px;
                     border-bottom: 1px solid #EEF6F8;
