@@ -1,6 +1,6 @@
 <template>
     <div id="data-table">
-        <div v-if="config.hasSearch && config.searchIndex" class="search-box">
+        <div v-if="config.hasSearch" class="search-box">
             <label for="">Search:</label>
             <input style="position: relative" @keyup="search()" v-model="searchString" type="text" class="search-input">
             <i @click="clearSearch()" v-if="this.hasSearch" class="fas fa-times"></i>

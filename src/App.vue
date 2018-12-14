@@ -52,7 +52,6 @@ export default {
         thClass: '',
         tdClass: '',
         hasSearch: true,
-        searchIndex: 'name'
       }
     }
   },
