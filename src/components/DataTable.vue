@@ -113,17 +113,22 @@ export default {
             }
         },
         search: _.debounce(function() {
+            if (this.searchString.trim() === "") {
+                this.hasSearch = false;
+                this.resetPaginator();
+                return;
+            }
             if (!this.hasSearch) {
                 this.hasSearch = true;
             }
-            this.searchSource = _.filter(this.compSource, (o) => Object.values(o).some((value) => new RegExp(this.searchString, 'i').test(value)));
+            this.searchSource = _.filter(this.compSource, (o) => Object.values(o).some((value) => new RegExp(this.searchString.trim(), 'i').test(value)));
             this.resetPaginator();
             this.fetchData();
         }, 600),
         resetPaginator() {
             this.currentPage = 1;
-            this.pages = Math.ceil(this.totalData / this.itemsPerPage);
             this.totalData = this.hasSearch ? this.searchSource.length : this.compSource.length;
+            this.pages = Math.ceil(this.totalData / this.itemsPerPage);
             this.fetchData();
         },
         clearSearch() {
