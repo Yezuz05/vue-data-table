@@ -1,7 +1,7 @@
 # BriteCore Frontend Engineering Challenge
 
 # Project details
-This is a vue project that houses a reusable vue data table component. This project was created using vue cli.
+This is a vue project that houses a reusable vue data table component. This project was created using vue cli. 
 
 # Data Table Component Usage
 The Data Table component can be found in the components folder as DataTable.vue and it can be extracted and used in any other vue project. I plan to deploy the component as an npm module in a few weeks.
@@ -13,7 +13,10 @@ The Data Table component can be found in the components folder as DataTable.vue 
 * Regex search pattern
 * Custom style classes for table
 
-#Input Data
+### View live demo on Netlify ###
+<https://vue-data-table.netlify.com>
+
+# Input Data
 The component expects the following variables
 ```
     dataSource      // Table data as an array of objects
@@ -37,7 +40,21 @@ Each column should be in this format
     } 
 ```
 
-#Follow Up Questions
+# Example
+#### In parent component template ####
+```
+    <DataTable @cell-change="handleCellChange" :dataSource="payments" :columns="columns" :config="config" />
+```
+
+Listen for cell change event with the cell-change event. It returns data in this format
+```
+    {
+        row,        //changed row
+        cell        //changed cell property
+    }
+```
+
+## Follow Up Questions ##
 1. How long did you spend on the test? Would you do anything differently if you had more time
     Ans. I spent about 19 hours on the test spread over three days. If I had more time I would love to extract the pagination and make it a component of it's own. I would also like to make the data table component allow custom sorting and filter functions. I believe there are alot more things to add, there are endless possibilities.
 
