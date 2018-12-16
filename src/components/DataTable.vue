@@ -97,11 +97,15 @@ export default {
             if (this.config.frontPagination) {
                 this.fetchData();
             } else {
-                this.$emit('pageIndexChange', this.currentPage);
+                this.$emit('pageChange', this.currentPage);
             }
         },
         goToPage() {
-            this.fetchData();
+            if (this.config.frontPagination) {
+                this.fetchData();
+            } else {
+                this.$emit('pageChange', this.currentPage);
+            }
         },
         fetchData() {
             const start = (this.currentPage - 1) * this.itemsPerPage;
