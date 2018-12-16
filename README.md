@@ -30,7 +30,7 @@ The component expects the following variables
         type: 'Date' (optional) //pass date for proper date display
     }
     config: {
-        total,
+        total,      // pass number for server-side pagination
         itemsPerPage, // defaults to 10
         frontPagination: true,  //pass false for server-side pagination
         tableClass, (optional)
@@ -53,6 +53,7 @@ Listen for cell change with the `cell-change` event. It returns data in this for
         cell        //changed cell property
     }
 ```
+Listen for page change with the `page-change` event. It emits the current page
 
 ## Follow Up Questions ##
 1. How long did you spend on the test? Would you do anything differently if you had more time
