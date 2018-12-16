@@ -2,14 +2,14 @@
     <div id="data-table">
         <div v-if="config.hasSearch" class="search-box">
             <label for="">Search:</label>
-            <input style="position: relative" @keyup="search()" v-model="searchString" type="text" class="search-input">
+            <input @keyup="search()" v-model="searchString" type="text" class="search-input">
             <i @click="clearSearch()" v-if="this.hasSearch" class="fas fa-times"></i>
         </div>
         <div class="table-wrapper">
-            <table :class="config.tableClass ? config.tableClass : 'table'">
+            <table :class="config.tableClass">
                 <thead>
                     <tr>
-                        <th :class="config.thClass ? config.thClass : 'th'" v-for="(column, index) in tableColumns" :key="index">
+                        <th :class="config.thClass" v-for="(column, index) in tableColumns" :key="index">
                             {{column.title}}
                             <i @click="sort(column,index)" v-if="column.sortable" :class="[!!column.sort_order ? 'has-sort' : '', column.sort_order === 'asc' ? 'fa-sort-amount-up': (column.sort_order === 'desc' ? 'fa-sort-amount-down': 'fa-sort-amount-up')]" class="fas"></i>
                         </th>
@@ -17,7 +17,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="(row, rowIndex) in tableData" :key="rowIndex">
-                        <td :class="config.tdClass ? config.tdClass : 'td'" v-for="(column, index) in tableColumns" :key="index">
+                        <td :class="config.tdClass" v-for="(column, index) in tableColumns" :key="index">
                             <span spellcheck="false" :contenteditable="column.editable && row.edit">
                                 {{ column.type === 'Date' ? new Date(row[column.dataIndex]).toLocaleString() : row[column.dataIndex]}}
                             </span>
@@ -53,9 +53,26 @@ import _ from 'lodash';
 export default {
     name: 'DataTable',
     props: {
-        dataSource:Array,
-        columns:Array,
-        config:Object
+        dataSource: {
+            default: [],
+            type: Array
+        },
+        columns: {
+            default: [],
+            type: Array
+        },
+        config: {
+            default: {
+                total: 0,
+                itemsPerPage: 5,
+                frontPagination: true,
+                tableClass: 'table',
+                thClass: 'th',
+                tdClass: 'td',
+                hasSearch: true,
+            },
+            type: Object
+        }
     },
     data() {
         return {
