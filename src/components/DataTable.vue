@@ -6,10 +6,10 @@
             <i @click="clearSearch()" v-if="this.hasSearch" class="fas fa-times"></i>
         </div>
         <div class="table-wrapper">
-            <table :class="config.tableClass">
+            <table :class="config.tableClass ? config.tableClass : 'table'">
                 <thead>
                     <tr>
-                        <th :class="config.thClass" v-for="(column, index) in tableColumns" :key="index">
+                        <th :class="config.thClass ? config.thClass : 'th'" v-for="(column, index) in tableColumns" :key="index">
                             {{column.title}}
                             <i @click="sort(column,index)" v-if="column.sortable" :class="[!!column.sort_order ? 'has-sort' : '', column.sort_order === 'asc' ? 'fa-sort-amount-up': (column.sort_order === 'desc' ? 'fa-sort-amount-down': 'fa-sort-amount-up')]" class="fas"></i>
                         </th>
@@ -17,7 +17,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="(row, rowIndex) in tableData" :key="rowIndex">
-                        <td :class="config.tdClass" v-for="(column, index) in tableColumns" :key="index">
+                        <td :class="config.tdClass ? config.tdClass : 'td'" v-for="(column, index) in tableColumns" :key="index">
                             <span spellcheck="false" :contenteditable="column.editable && row.edit">
                                 {{ column.type === 'Date' ? new Date(row[column.dataIndex]).toLocaleString() : row[column.dataIndex]}}
                             </span>
