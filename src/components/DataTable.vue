@@ -54,22 +54,24 @@ export default {
     name: 'DataTable',
     props: {
         dataSource: {
-            default: [],
+            default: () => [],
             type: Array
         },
         columns: {
-            default: [],
+            default: () => [],
             type: Array
         },
         config: {
-            default: {
-                total: 0,
-                itemsPerPage: 5,
-                frontPagination: true,
-                tableClass: 'table',
-                thClass: 'th',
-                tdClass: 'td',
-                hasSearch: true,
+            default: () => {
+                return {
+                    total: 0,
+                    itemsPerPage: 5,
+                    frontPagination: true,
+                    tableClass: 'table',
+                    thClass: 'th',
+                    tdClass: 'td',
+                    hasSearch: true
+                }
             },
             type: Object
         }
