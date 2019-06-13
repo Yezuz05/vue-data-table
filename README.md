@@ -1,4 +1,4 @@
-# BriteCore Frontend Engineering Challenge
+# Vue Data Table
 
 # Project details
 This is a vue project that houses a reusable vue data table component. This project was created using vue cli. 
@@ -54,39 +54,6 @@ Listen for cell change with the `cell-change` event. It returns data in this for
     }
 ```
 Listen for page change with the `page-change` event. It emits the current page
-
-## Follow Up Questions ##
-1. How long did you spend on the test? Would you do anything differently if you had more time
-<details>
-    <summary>
-        Answer
-    </summary>
-    <p>
-        I spent about 19 hours on the test spread over three days. If I had more time I would love to extract the pagination and make it a component of it's own. I would also like to make the data table component allow custom sorting and filter functions. I believe there are alot more things to add, there are endless possibilities.
-    </p>
-</details>
-
-
-2. In what ways would you adapt your component so that it could be used in many different scenarios where a data table is required?
-<details>
-    <summary>
-        Answer
-    </summary>
-    <p>
-        Firstly, I would deploy as an npm module for vue applications. I'm also thinking of creating a standalone vue component build so it can be used in any frontend project.
-    </p>
-</details>
-
-
-3. What is one CSS property that you recently learned about that helped you solve a problem?
-<details>
-    <summary>
-        Answer
-    </summary>
-    <p>
-        Well, all the css properties I used in this test have been used by me at some point in the past. But a new thing I learned while solving this problem is, the use of the HTML5 contenteditable property. 
-    </p>
-</details>
 
 ## Project setup
 ```
