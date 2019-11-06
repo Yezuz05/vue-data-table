@@ -4,7 +4,7 @@
 This is a vue project that houses a reusable vue data table component. This project was created using vue cli. 
 
 # Data Table Component Usage
-The Data Table component can be found in the components folder as DataTable.vue and it can be extracted and used in any other vue project. I plan to deploy the component as an npm module in a few weeks.
+The Data Table component can be found in the components folder as DataTable.vue and it can be extracted and used in any other vue project. I plan to deploy the component as an npm module soon.
 
 # Features
 * Search through any column
